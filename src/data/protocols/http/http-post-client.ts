@@ -1,9 +1,11 @@
+import { HttpResponse } from './http-response'
+
 export type HttpPostParams = {
   url: string
   body?: object
 }
 
-// Interface segregation principle -> specific interface, small interfaces
+// I of SOLID: Interface segregation principle -> specific and small interfaces
 export interface HttpPostClient {
-  post (params: HttpPostParams): Promise<void>
+  post (params: HttpPostParams): Promise<HttpResponse>
 }
