@@ -1,3 +1,3 @@
-export const makeApiUrl = (): string => {
-  return ''
+export const makeApiUrl = (path: string): string => {
+  return `${path}`
 }
