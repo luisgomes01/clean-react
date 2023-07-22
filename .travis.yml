@@ -4,3 +4,13 @@ node_js:
 script:
   - eslint 'src/**'
   - pnpm test:ci
+cache:
+  npm: false
+  directories:
+    - "~/.pnpm-store"
+before_install:
+  - corepack enable
+  - corepack prepare pnpm@8.3.1 --activate
+  - pnpm config set store-dir ~/.pnpm-store
+install:
+  - pnpm install
