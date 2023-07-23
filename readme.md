@@ -1,1 +1,2 @@
 [![Build Status](https://app.travis-ci.com/luisgomes01/clean-react.svg?branch=main)](https://app.travis-ci.com/luisgomes01/clean-react)
+[![Coverage Status](https://coveralls.io/repos/github/luisgomes01/clean-react/badge.svg?branch=main)](https://coveralls.io/github/luisgomes01/clean-react?branch=main)
