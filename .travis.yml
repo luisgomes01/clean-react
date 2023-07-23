@@ -4,6 +4,7 @@ node_js:
 script:
   - eslint 'src/**'
   - pnpm test:ci
+  - pnpm test:coveralls
 cache:
   npm: false
   directories:
