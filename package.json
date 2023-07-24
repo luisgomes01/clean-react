@@ -9,7 +9,7 @@
     "test:watch": "pnpm test -- --watch",
     "test:staged": "pnpm test -- --findRelatedTest",
     "test:ci": "pnpm test -- --coverage",
-    "test:coveralls": "pnpm test:ci && coveralls < coverage/lcov.info"
+    "test:coveralls": "pnpm test:ci && coveralls < coverage/lcov.info -v"
   },
   "keywords": [],
   "author": "",
