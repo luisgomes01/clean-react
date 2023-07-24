@@ -4,9 +4,6 @@ node_js:
 script:
   - eslint 'src/**'
   - pnpm test:coveralls
-env:
-  global:
-    - COVERALLS_REPO_TOKEN=GE7bev8A3xL1YAhIqqeSUxODp9Ub60AxN
 cache:
   npm: false
   directories:
@@ -15,8 +12,6 @@ before_install:
   - corepack enable
   - corepack prepare pnpm@8.3.1 --activate
   - pnpm config set store-dir ~/.pnpm-store
-after_success:
-  - pnpm run coveralls
 install:
   - pnpm install
   - pnpm install coveralls
