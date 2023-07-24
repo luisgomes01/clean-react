@@ -9,6 +9,7 @@ cache:
   directories:
     - "~/.pnpm-store"
 before_install:
+  - git checkout main
   - corepack enable
   - corepack prepare pnpm@8.3.1 --activate
   - pnpm config set store-dir ~/.pnpm-store
