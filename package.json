@@ -7,7 +7,7 @@
     "start": "webpack-dev-server --open",
     "test": "jest --passWithNoTests --no-cache --runInBand",
     "test:watch": "pnpm test -- --watch",
-    "test:staged": "pnpm test -- --findRelatedTest",
+    "test:staged": "pnpm test -- --findRelatedTests",
     "test:ci": "pnpm test -- --coverage",
     "test:coveralls": "pnpm test:ci && coveralls < coverage/lcov.info -v"
   },
