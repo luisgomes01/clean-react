@@ -3,21 +3,34 @@ import Styles from './signup-styles.scss'
 import { Footer, Input, LoginHeader, FormStatus } from '@/presentation/components'
 import FormContext from '@/presentation/contexts/form/form-context'
 import { Link } from 'react-router-dom'
+import { Validation } from '@/presentation/protocols/validation'
 
-const Signup: React.FC = () => {
-  const [state] = useState({
+type Props = {
+  validation: Validation
+}
+
+const Signup: React.FC<Props> = ({ validation }: Props) => {
+  const [state, setState] = useState({
     isLoading: false,
-    nameError: 'Campo obrigatório',
+    name: '',
+    nameError: '',
     emailError: 'Campo obrigatório',
     passwordError: 'Campo obrigatório',
     passwordConfirmationError: 'Campo obrigatório',
     mainError: ''
   })
 
+  useEffect(() => {
+    setState({
+      ...state,
+      nameError: validation.validate('name', state.name)
+    })
+  }, [state.name])
+
   return (
     <div className={Styles.signup}>
       <LoginHeader />
-      <FormContext.Provider value={{ state }}>
+      <FormContext.Provider value={{ state, setState }}>
         <form className={Styles.form}>
           <h2>Criar Conta</h2>
 
