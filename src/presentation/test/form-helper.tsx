@@ -6,7 +6,7 @@ export const testChildCount = (sut: RenderResult, fieldName: string, count: numb
   expect(el.childElementCount).toBe(count)
 }
 
-export const testButtonIsDisabled = (sut: RenderResult, fieldName: string, isDisabled: true): void => {
+export const testButtonIsDisabled = (sut: RenderResult, fieldName: string, isDisabled: boolean = true): void => {
   const button = sut.getByTestId(fieldName) as HTMLButtonElement
   expect(button.disabled).toBe(isDisabled)
 }
