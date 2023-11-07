@@ -1,13 +1,14 @@
 import React from 'react'
 import Signup from './signup'
 import { RenderResult, cleanup, fireEvent, render, waitFor } from '@testing-library/react'
-import { Helper, ValidationStub, AddAccountSpy } from '@/presentation/test'
+import { Helper, ValidationStub, AddAccountSpy, SaveAccessTokenMock } from '@/presentation/test'
 import { faker } from '@faker-js/faker'
 import { EmailInUseError } from '@/domain/errors'
 
 type SutTypes = {
   sut: RenderResult
   addAccountSpy: AddAccountSpy
+  saveAccessTokenMock: SaveAccessTokenMock
 
 }
 
@@ -19,11 +20,11 @@ const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   validationStub.errorMessage = params?.validationError
   const addAccountSpy = new AddAccountSpy()
-
-  const sut = render(<Signup validation={validationStub} addAccount={addAccountSpy} />)
+  const saveAccessTokenMock = new SaveAccessTokenMock()
+  const sut = render(<Signup validation={validationStub} addAccount={addAccountSpy} saveAccessToken={saveAccessTokenMock} />)
 
   return {
-    sut, addAccountSpy
+    sut, addAccountSpy, saveAccessTokenMock
   }
 }
 
@@ -148,5 +149,11 @@ describe('Signup Component', () => {
     await simulateValidSubmit(sut)
     Helper.testElementText(sut, 'main-error', error.message)
     Helper.testChildCount(sut, 'error-wrap', 1)
+  })
+
+  test('Should call SaveAccessToken on success', async () => {
+    const { sut, addAccountSpy, saveAccessTokenMock } = makeSut()
+    await simulateValidSubmit(sut)
+    await waitFor(() => expect(saveAccessTokenMock.accessToken).toBe(addAccountSpy.account.accessToken))
   })
 })
