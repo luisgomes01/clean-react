@@ -4,6 +4,7 @@ import { RenderResult, cleanup, fireEvent, render, waitFor } from '@testing-libr
 import { Helper, ValidationStub, AddAccountSpy, SaveAccessTokenMock } from '@/presentation/test'
 import { faker } from '@faker-js/faker'
 import { EmailInUseError } from '@/domain/errors'
+import { testElementText } from '@/presentation/test/form-helper'
 
 type SutTypes = {
   sut: RenderResult
@@ -155,5 +156,16 @@ describe('Signup Component', () => {
     const { sut, addAccountSpy, saveAccessTokenMock } = makeSut()
     await simulateValidSubmit(sut)
     await waitFor(() => expect(saveAccessTokenMock.accessToken).toBe(addAccountSpy.account.accessToken))
+  })
+
+  test('Should present error if SaveAccessToken fails', async () => {
+    const { sut, saveAccessTokenMock } = makeSut()
+    const error = new EmailInUseError()
+    jest.spyOn(saveAccessTokenMock, 'save').mockRejectedValueOnce(error)
+    await simulateValidSubmit(sut)
+    await waitFor(() => {
+      Helper.testElementText(sut, 'main-error', error.message)
+      Helper.testChildCount(sut, 'error-wrap', 1)
+    })
   })
 })
