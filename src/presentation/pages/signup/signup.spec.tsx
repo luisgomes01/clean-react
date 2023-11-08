@@ -4,7 +4,6 @@ import { RenderResult, cleanup, fireEvent, render, waitFor } from '@testing-libr
 import { Helper, ValidationStub, AddAccountSpy, SaveAccessTokenMock } from '@/presentation/test'
 import { faker } from '@faker-js/faker'
 import { EmailInUseError } from '@/domain/errors'
-import { testElementText } from '@/presentation/test/form-helper'
 
 type SutTypes = {
   sut: RenderResult
