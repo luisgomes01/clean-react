@@ -1,6 +1,7 @@
 language: node_js
 node_js:
   - 20.9
+dist: jammy
 script:
   - eslint 'src/**'
   - pnpm test:coveralls
