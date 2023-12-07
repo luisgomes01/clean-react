@@ -4,6 +4,7 @@ import { Footer, Input, LoginHeader, FormStatus, SubmitButton } from '@/presenta
 import FormContext from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
 import { Authentication, SaveAccessToken } from '@/domain/usecases'
+import useHistory, { redirect, useNavigate } from 'react-router-dom'
 
 type Props = {
   validation: Validation
@@ -46,6 +47,7 @@ const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }:
       setState({ ...state, isLoading: true })
       const account = await authentication.auth({ email: state.email, password: state.password })
       await saveAccessToken.save(account.accessToken)
+      redirect('/')
     } catch (error) {
       setState({ ...state, isLoading: false, mainError: error.message })
     }

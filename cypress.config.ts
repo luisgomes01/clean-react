@@ -7,7 +7,6 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       const options = {
         webpackOptions: require('./webpack.config'),
-        watchOptions: {}
       }    
       on('file:preprocessor', webpackPreprocessor(options))
     },
