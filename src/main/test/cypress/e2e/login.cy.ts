@@ -99,9 +99,9 @@ describe('Login', () => {
       body: { accessToken: faker.random.numeric() }
     })
     cy.getByTestId('email').focus()
-    cy.getByTestId('email').type('test@test.com')
+    cy.getByTestId('email').type(faker.internet.email())
     cy.getByTestId('password').focus()
-    cy.getByTestId('password').type('12345')
+    cy.getByTestId('password').type(faker.random.alphaNumeric(5))
     cy.getByTestId('submit').click()
     cy.getByTestId('main-error').should('not.exist')
     cy.url().should('equal', `${baseUrl}/`)
