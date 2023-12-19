@@ -5,6 +5,13 @@ import { Login } from '@/presentation/pages'
 import { ValidationStub, AuthenticationSpy, SaveAccessTokenMock, Helper } from '@/presentation/test'
 import { InvalidCredentialsError } from '@/domain/errors'
 
+const mockedNavigator = jest.fn()
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockedNavigator
+}))
+
 type SutTypes = {
   sut: RenderResult
   authenticationSpy: AuthenticationSpy
