@@ -46,10 +46,13 @@ const simulateValidSubmit = (sut: RenderResult, email = faker.internet.email(), 
   fireEvent.click(submitButton)
 }
 
-const simulateInputStatus = (sut: RenderResult, inputName: string, validationError?: string): void => {
-  const inputStatus = sut.getByTestId(`${inputName}-status`)
-  expect(inputStatus.title).toBe(validationError || 'Tudo certo!')
-  expect(inputStatus.textContent).toBe(validationError ? '🔴' : '🟢')
+const simulateInputStatus = (sut: RenderResult, fieldName: string, validationError: string = ''): void => {
+  const wrap = sut.getByTestId(`${fieldName}-wrap`)
+  const field = sut.getByTestId(fieldName)
+  const label = sut.getByTestId(`${fieldName}-label`)
+  expect(wrap.getAttribute('data-status')).toBe(validationError ? 'invalid' : 'valid')
+  expect(field.title).toBe(validationError)
+  expect(label.title).toBe(validationError)
 }
 
 describe('Login Component', () => {
