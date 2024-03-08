@@ -86,4 +86,11 @@ describe('Signup', () => {
     FormHelper.testMainError('Unexpected Error was thrown. Try again soon.')
     FormHelper.testUrl('/signup')
   })
+
+  it('Should present UnexpectedError if invalid data is returned', () => {
+    Http.mockInvalidData()
+    simulateValidSubmit()
+    FormHelper.testMainError('Unexpected Error was thrown. Try again soon.')
+    FormHelper.testUrl('/signup')
+  })
 })
