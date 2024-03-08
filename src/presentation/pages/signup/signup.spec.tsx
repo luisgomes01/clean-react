@@ -5,11 +5,17 @@ import { Helper, ValidationStub, AddAccountSpy, SaveAccessTokenMock } from '@/pr
 import { faker } from '@faker-js/faker'
 import { EmailInUseError } from '@/domain/errors'
 
+const mockedNavigator = jest.fn()
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockedNavigator
+}))
+
 type SutTypes = {
   sut: RenderResult
   addAccountSpy: AddAccountSpy
   saveAccessTokenMock: SaveAccessTokenMock
-
 }
 
 type SutParams = {

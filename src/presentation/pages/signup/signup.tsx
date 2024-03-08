@@ -4,6 +4,7 @@ import { Footer, Input, LoginHeader, FormStatus, SubmitButton } from '@/presenta
 import FormContext from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
 import { AddAccount, SaveAccessToken } from '@/domain/usecases'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
   validation: Validation
@@ -25,6 +26,7 @@ const Signup: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Pr
     passwordConfirmationError: 'Campo obrigatório',
     mainError: ''
   })
+  const navigate = useNavigate()
 
   useEffect(() => {
     const { name, email, password, passwordConfirmation } = state
@@ -33,7 +35,6 @@ const Signup: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Pr
     const emailError = validation.validate('email', formData)
     const passwordError = validation.validate('password', formData)
     const passwordConfirmationError = validation.validate('passwordConfirmation', formData)
-
     setState({
       ...state,
       nameError,
@@ -54,6 +55,7 @@ const Signup: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Pr
       setState({ ...state, isLoading: true })
       const account = await addAccount.add({ name: state.name, email: state.email, password: state.password, passwordConfirmation: state.passwordConfirmation })
       await saveAccessToken.save(account.accessToken)
+      navigate('/')
     } catch (error) {
       setState({ ...state, isLoading: false, mainError: error.message })
     }

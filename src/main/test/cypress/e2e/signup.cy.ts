@@ -93,4 +93,12 @@ describe('Signup', () => {
     FormHelper.testMainError('Unexpected Error was thrown. Try again soon.')
     FormHelper.testUrl('/signup')
   })
+
+  it('Should save accessToken if valid credentials are provided', () => {
+    Http.mockOk()
+    simulateValidSubmit()
+    cy.getByTestId('main-error').should('not.exist')
+    FormHelper.testUrl('/')
+    FormHelper.testLocalStorageItem('accessToken')
+  })
 })
