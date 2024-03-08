@@ -11,7 +11,7 @@ export default defineConfig({
       on('file:preprocessor', webpackPreprocessor(options))
     },
     baseUrl: "http://localhost:3000",
-    supportFile: "src/main/test/cypress/support/index.{js,jsx,ts, tsx}",
+    supportFile: "src/main/test/cypress/support/index.{js,jsx,ts,tsx}",
     fixturesFolder: false,
     specPattern: 'src/main/test/cypress/e2e/**/*.cy.ts'
   },
